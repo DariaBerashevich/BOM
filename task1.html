@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //Create a function which will print browser screen width and height on console.
+    //Values should change when screen is resized.
+
+    window.onresize = function () {
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      console.log(width, height);
+    };
+
+    //Create custom previous and next pages buttons on your page.
+
+    let button = document.createElement("button");
+    document.body.appendChild(button);
+    button.textContent = "Previous";
+    button.setAttribute("onclick", "window.history.back()");
+
+    let button2 = button.cloneNode(true);
+    document.body.appendChild(button2);
+    button2.textContent = "Next";
+    button.setAttribute("onclick", "window.history.forward()");
+
+    let buttons = document.querySelectorAll("button");
+    buttons[1].style.marginLeft = "10px";
+    buttons[1].style.backgroundColor = "lightpink";
+    buttons[0].style.backgroundColor = "lightblue";
+
+    //Create a function which will print all information about the browser
+    //and environment which you may find. Check it in different browsers.
+
+    window.onload = function () {
+      let info = document.createElement("p");
+      info.innerText = `
+            Name of the browser: ${navigator.appName}
+            Code name of the browser: ${navigator.appCodeName}
+            Browser version: ${navigator.appVersion}
+            Cookie: ${navigator.cookieEnabled}
+            Language: ${navigator.language}
+            Online: ${navigator.onLine}
+            Platform: ${navigator.platform}
+            Engine: ${navigator.product}
+            Other info: ${navigator.userAgent}
+            `;
+      document.body.appendChild(info);
+    };
+
+    //Create a function which will change or set url parameter.
+
+    function setUrlParameter(param, value) {
+      let url = new URL(window.location);
+      let params = url.searchParams;
+      params.set(param, value);
+      history.replaceState(null, null, `?${params}`);
+      return url.href;
+    }
+
+    //Create a function which will change or set url hash parameter (without page reload).
+
+    let obj = {};
+    function setUrlHashParameter(param, value) {
+      obj[param] = value;
+      let str = "";
+      for (let key in obj) {
+        str += `&${key}=${obj[key]}`;
+      }
+      window.location.hash = str.substr(1);
+      return window.location.hash;
+    }
+  </script>
+</html>
